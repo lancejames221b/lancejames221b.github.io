@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mobile Link Sign In</title>
+    <link rel="icon" href="https://gpsstagingpltazureb2c.blob.core.windows.net/mobile-link/favicon.ico" >
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://gpsstagingpltazureb2c.blob.core.windows.net/mobile-link/custom.css?v=20230505-001" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+    <div class="container unified_container">
+        <div class="card">
+            <div class="card-body">
+                <img alt="Mobile Link Logo" class="companyLogo" src="https://cdn.mbl.link/images/azureb2c/mobile-link-logo.svg" >
+                <div id="api"></div>
+            </div>
+        </div>
+        <img alt="Background Image" id="backgroundImage" src="https://cdn.mbl.link/images/azureb2c/ring-bg-left-bottom.svg" >
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" >
+    $(function() {
+        function makePwdToggler(pwd){
+        // Create show-password checkbox
+        var checkbox = document.createElement('input');
+        checkbox.setAttribute('type', 'checkbox');
+        checkbox.setAttribute('tabindex', -1);
+        
+        var id = pwd.id + 'toggler';
+        checkbox.setAttribute('id', id);
+
+        var labelSpan = document.createElement('span')
+        labelSpan.innerHTML = ' Show Password';
+
+        var div = document.createElement('div');
+        div.setAttribute('class', 'showPasswordContainer')
+        div.appendChild(checkbox);
+        div.appendChild(labelSpan);
+
+        // Add show-password checkbox under password input
+        pwd.insertAdjacentElement('afterend', div);
+
+        // Add toggle password callback
+        function toggle(){
+            if(pwd.type === 'password'){
+            pwd.type = 'text';
+            } else {
+            pwd.type = 'password';
+            }
+        }
+        checkbox.onclick = toggle;
+        // For non-mouse usage
+        checkbox.onkeydown = toggle;
+        }
+
+        function setupPwdTogglers(){
+        var pwdInputs = document.querySelectorAll('input[type=password]');
+        for (var i = 0; i < pwdInputs.length; i++) {
+            makePwdToggler(pwdInputs[i]);
+        }
+        }
+
+        setupPwdTogglers();
+
+        var rememberMeDiv = document.querySelector("div.rememberMe")
+        if (rememberMeDiv) {
+            // Preselect checkbox for "Remember this device"
+            var rememberMeCheckbox = rememberMeDiv.querySelector("#rememberMe")
+            if (rememberMeCheckbox) {
+                rememberMeCheckbox.checked = true;
+            }
+        }
+    });
+</script>
